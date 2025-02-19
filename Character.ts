@@ -6,8 +6,8 @@ export class Character {
     public SPD: number;
     public maxHealth: number;
     public currenthealth : number;
-    public healCap: number;  //Must be between 1 and 100 (is a percentage)
-    public resurrectHealth: number;  //Must be between 1 and 100 (is a percentage)
+    public healCap: number;  //Is a percentage
+    public resurrectHealth: number;  //Is a percentage
 
     //Constructor
     public constructor (
@@ -69,8 +69,6 @@ export class Character {
         }
         console.log(`${this.name} heals ${target.name} for ${heal} health!`);
     }
-
-    
 
     //Method that resurrects a character if they're dead and heals them for a percentage of their max health (resurrectHealth)
     public resurrect() {
