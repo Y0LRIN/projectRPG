@@ -11,10 +11,13 @@ class menu {
         this.options = options;
     }
 
+    //Methods
+    //Method that displays the menu
     public displayMenu() {
         console.log(this.menuDisplay);
     }
 
+    //Method that displays the options
     public displayOptions() {
         for (let i = 0; i<this.options.length; i++) {
             if (this.options[i] !== "") {
@@ -23,6 +26,7 @@ class menu {
         }
     }
 
+    //Method that selects an option
     public selectOption() {
         let option = prompt("Select an option: ");
         if (option === null || !option.match(/^[1-8]$/) || option === "") {
