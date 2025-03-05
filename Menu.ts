@@ -1,8 +1,12 @@
 class menu {
     //Properties
-    public menuID: number;
-    public menuDisplay: string;
-    public options: string[];
+    private menuID: number;
+    private menuDisplay: string;
+    private options: string[];
+
+    public getMenuID(): number {
+        return this.menuID;
+    }
 
     //Constructor
     constructor(menuID: number, menuDisplay: string, options: string[]) {
