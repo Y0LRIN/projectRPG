@@ -1,4 +1,12 @@
 import { Character } from "../Character";
 
-const caster = new Character('Clere', 20, 20, 20, 20);
+class Clere extends Character {
+    private maxMana: number;
+    private currentMana: number;
+    constructor() {
+        super('Clere', 20, 20, 20, 20, 20, 20);
+        this.maxMana = 20;
+        this.currentMana = 20;
+    }
+}
 
