@@ -1,13 +1,13 @@
 export class Character {
     //Properties
-    public name: string;
-    public ATK: number;
-    public DEF: number;
-    public SPD: number;
-    public maxHealth: number;
-    public currenthealth : number;
-    public healCap: number;  //Is a percentage
-    public resurrectHealth: number;  //Is a percentage
+    private name: string;
+    private ATK: number;
+    private DEF: number;
+    private SPD: number;
+    private maxHealth: number;
+    private currenthealth : number;
+    private healCap: number;  //Is a percentage
+    private resurrectHealth: number;  //Is a percentage
 
     //Constructor
     public constructor (
