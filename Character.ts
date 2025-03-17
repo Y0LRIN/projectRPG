@@ -3,7 +3,7 @@ export class Character {
     public name: string;
     protected ATK: number;
     public DEF: number;
-    private SPD: number;
+    public SPD: number;
     protected maxHealth: number;
     public currenthealth : number;
     private healCap: number;  //Is a percentage
