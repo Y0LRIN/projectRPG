@@ -1,11 +1,11 @@
 export class Character {
     //Properties
-    private name: string;
-    private ATK: number;
-    private DEF: number;
+    public name: string;
+    protected ATK: number;
+    public DEF: number;
     private SPD: number;
-    private maxHealth: number;
-    private currenthealth : number;
+    protected maxHealth: number;
+    public currenthealth : number;
     private healCap: number;  //Is a percentage
     private resurrectHealth: number;  //Is a percentage
 
