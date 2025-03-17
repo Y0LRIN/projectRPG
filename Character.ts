@@ -16,7 +16,6 @@ export class Character {
                 DEF: number,
                 SPD: number,
                 maxHealth: number,
-                currenthealth: number,
                 healCap: number,
                 resurrectHealth: number) {
         this.name = name;
@@ -24,7 +23,7 @@ export class Character {
         this.DEF = DEF;
         this.SPD = SPD;
         this.maxHealth = maxHealth;
-        this.currenthealth = currenthealth;
+        this.currenthealth = maxHealth;
         this.healCap = healCap;
         this.resurrectHealth = resurrectHealth;
     }
