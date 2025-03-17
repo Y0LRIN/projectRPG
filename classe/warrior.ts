@@ -10,13 +10,11 @@ class Warrior extends Character {
             console.log(`${this.name} is dead and cannot attack!`);
             return;
         }
-
         const aliveEnemies = enemies.filter(enemy => enemy.isAlive());
         if (aliveEnemies.length === 0) {
             console.log(`There are no alive enemies to attack!`);
             return;
         }
-
         const target = aliveEnemies[Math.floor(Math.random() * aliveEnemies.length)];
         let damage = this.ATK * 1.3 - target.DEF;
         target.currenthealth -= damage;
