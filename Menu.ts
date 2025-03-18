@@ -40,3 +40,4 @@ class menu {
         return option;
     }
 }
+console.log("Menu class loaded");
