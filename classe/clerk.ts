@@ -30,7 +30,8 @@ class Clerk extends Character {
         console.log(`${this.name} attacks ${target.name} for ${damage} damage!`);
     }
 protected magicHeal(target: Character): void {
-if (!this.isAlive()) {
+
+    if (!this.isAlive()) {
     console.log(`${this.name} is dead and cannot heal!`);
     return;
 }

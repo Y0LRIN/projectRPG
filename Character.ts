@@ -4,7 +4,7 @@ export class Character {
     protected ATK: number;
     public DEF: number;
     public SPD: number;
-    protected maxHealth: number;
+    public maxHealth: number;
     public currenthealth : number;
     private healCap: number;  //Is a percentage
     private resurrectHealth: number;  //Is a percentage
