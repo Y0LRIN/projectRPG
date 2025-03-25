@@ -29,24 +29,23 @@ class Clerk extends Character {
         }
         console.log(`${this.name} attacks ${target.name} for ${damage} damage!`);
     }
-protected magicHeal(target: Character): void {
+    protected magicHeal(target: Character): void {
 
-    if (!this.isAlive()) {
-    console.log(`${this.name} is dead and cannot heal!`);
-    return;
-}
-if (!target.isAlive()) {
-    console.log(`${target.name} is already healing!`);
-    return;
-}
-if (this.currentMana < 10) {
-    console.log(`${this.name} does not have enough mana to heal!`);
-    return;
-this.currentMana -= 10;
-let heal = Math.min(target.maxHealth - target.currenthealth, this.healMagic);
-target.currenthealth += heal;
-console.log(`${this.name} heals ${target.name} for ${heal} health!`);
-
-}
-}
+        if (!this.isAlive()) {
+        console.log(`${this.name} is dead and cannot heal!`);
+        return;
+    }
+    if (!target.isAlive()) {
+        console.log(`${target.name} is already healing!`);
+        return;
+    }
+    if (this.currentMana < 10) {
+        console.log(`${this.name} does not have enough mana to heal!`);
+        return;
+    }
+    this.currentMana -= 10;
+    let heal = Math.min(target.maxHealth - target.currenthealth, this.healMagic);
+    target.currenthealth += heal;
+    console.log(`${this.name} heals ${target.name} for ${heal} health!`);
+    }
 }
