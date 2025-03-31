@@ -66,6 +66,16 @@ const Charatermenu = new menu(2, "#                            Heros            
     const selectedOptionHeros1 = Charatermenu.selectOption();
     const selectedOptionHeros2 = Charatermenu.selectOption();
     const selectedOptionHeros3 = Charatermenu.selectOption();
+    console.log("#///////////////////////////////////////////////////////////////#")
+    console.log("#                                                               #")
+    console.log("#             vous avez choisi les heros suivants :             #")
+    console.log("#                                                               #")
+    console.log("#///////////////////////////////////////////////////////////////#")
+    console.log(`Heros 1 : ${Charatermenu.options[selectedOptionHeros1-1]}`)
+    console.log(`Heros 2 : ${Charatermenu.options[selectedOptionHeros2-1]}`)
+    console.log(`Heros 3 : ${Charatermenu.options[selectedOptionHeros3-1]}`)
 
-
+function seletHeros(Charatermenu:string) {
+    
+}
 
