@@ -52,7 +52,7 @@ Mainmenu.displayMenu();
 Mainmenu.displayOptions();
 const selectedOption = Mainmenu.selectOption();
 if (selectedOption === "1") {}
-else if (selectedOption === "2") {console.log("Exiting game...");
+else if (selectedOption === "2") {console.log("Merci d'avoir joué à notre jeu !");
     process.exit(0);}
 
 console.log("#///////////////////////////////////////////////////////////////#")
@@ -63,4 +63,9 @@ const Charatermenu = new menu(2, "#                            Heros            
     console.log("#///////////////////////////////////////////////////////////////#")
     Charatermenu.displayMenu();
     Charatermenu.displayOptions();
+    const selectedOptionHeros1 = Charatermenu.selectOption();
+    const selectedOptionHeros2 = Charatermenu.selectOption();
+    const selectedOptionHeros3 = Charatermenu.selectOption();
+
+
 
