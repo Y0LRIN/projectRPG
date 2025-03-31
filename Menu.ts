@@ -40,4 +40,19 @@ class menu {
         return option;
     }
 }
-console.log("Menu class loaded");
+const Mainmenu = new menu(1, "Main Menu", ["Start Game","Exit Game"]);
+console.log("#///////////////////////////////////////////////////////////////#");
+console.log(" #                      Welcome to the                         #");
+console.log(" #                           RPG                               #");
+console.log(" #                       Tape Goblin                           #");
+console.log("#///////////////////////////////////////////////////////////////#");
+Mainmenu.displayMenu();
+Mainmenu.displayOptions();
+const selectedOption = Mainmenu.selectOption();
+console.log("#///////////////////////////////////////////////////////////////#")
+const Charatermenu = new menu(2, "#                          Heros                                #",
+    ["Guerrier","Mage","Paladin","Barbare","Prêtre","Voleur"]);
+    
+    Charatermenu.displayMenu();
+    Charatermenu.displayOptions();
+
