@@ -40,7 +40,14 @@ class menu {
         return option;
     }
 }
-const Mainmenu = new menu(1, "Main Menu", ["Start Game","Exit Game"]);
+class Menu {
+    constructor(parameters) {
+        
+    }
+}
+const Mainmenu = new menu(1, "Main Menu", ["Start Game","Exit Game"])
+if (selectedOption == 2) {process.exit();}
+else (selectedOption == 1) {}
 console.log("#///////////////////////////////////////////////////////////////#");
 console.log(" #                      Welcome to the                         #");
 console.log(" #                           RPG                               #");
