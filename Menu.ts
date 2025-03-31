@@ -39,15 +39,10 @@ class menu {
         }
         return option;
     }
-}
-class Menu {
-    constructor(parameters) {
-        
-    }
+
 }
 const Mainmenu = new menu(1, "Main Menu", ["Start Game","Exit Game"])
-if (selectedOption == 2) {process.exit();}
-else (selectedOption == 1) {}
+
 console.log("#///////////////////////////////////////////////////////////////#");
 console.log(" #                      Welcome to the                         #");
 console.log(" #                           RPG                               #");
@@ -56,10 +51,16 @@ console.log("#///////////////////////////////////////////////////////////////#")
 Mainmenu.displayMenu();
 Mainmenu.displayOptions();
 const selectedOption = Mainmenu.selectOption();
+if (selectedOption === "1") {}
+else if (selectedOption === "2") {console.log("Exiting game...");
+    process.exit(0);}
+
 console.log("#///////////////////////////////////////////////////////////////#")
-const Charatermenu = new menu(2, "#                          Heros                                #",
+const Charatermenu = new menu(2, "#                            Heros                              #",
     ["Guerrier","Mage","Paladin","Barbare","Prêtre","Voleur"]);
-    
+    console.log("#                 choisie ton équipe de heros                   #")
+    console.log("#                                                               #")
+    console.log("#///////////////////////////////////////////////////////////////#")
     Charatermenu.displayMenu();
     Charatermenu.displayOptions();
 
