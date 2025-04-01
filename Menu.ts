@@ -2,8 +2,8 @@ class menu {
     //Properties
     private menuID: number;
     private menuDisplay: string;
-    protected options: string[];
-    private selectedOption: string;
+    public options: string[];
+    public selectedOption: string;
     private selectedOptionHeros: string[];
 
     public getMenuID(): number {
@@ -46,11 +46,12 @@ class menu {
         if (option === null || !option.match(/^[1-6]$/) || option === "") {
             console.log("Option Invalide.Slectionnez une option valide.");
             return this.selectOption();
-        }
+        }    
         return option;
     }
 
 }
+
 const Mainmenu = new menu(1, "Main Menu", ["Jouer","Quitter"]);
 
 console.log("#///////////////////////////////////////////////////////////////#");
