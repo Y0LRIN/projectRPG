@@ -34,8 +34,8 @@ export class HealingObjects extends Object {
     private canResurrect: boolean;
     private healingAmount: number;
 
-    public constructor(name: string, description: string, healingAmount: number, canResurrect: boolean) {
-        super(name, description);
+    public constructor(name: string, description: string, useNbr: number, healingAmount: number, canResurrect: boolean) {
+        super(name, description, useNbr);
         this.healingAmount = healingAmount;
         this.canResurrect = canResurrect;
     }
@@ -73,8 +73,8 @@ export class HealingObjects extends Object {
 export class ManaObjects extends Object {
     private manaAmount: number;
 
-    public constructor(name: string, description: string, manaAmount: number) {
-        super(name, description);
+    public constructor(name: string, description: string, useNbr: number, manaAmount: number) {
+        super(name, description, useNbr);
         this.manaAmount = manaAmount;
     }
 
