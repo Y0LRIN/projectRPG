@@ -1,6 +1,6 @@
 import { Character } from "../Character";
 
-class Clerk extends Character {
+export class Clerk extends Character {
     private maxMana: number;
     private currentMana: number;
     private healMagic: number;

@@ -1,3 +1,6 @@
+import { Caster } from './classe/caster';
+import { Clerk } from './classe/clerk';
+
 export class Object {
     private name: string;
     private description: string;
@@ -63,7 +66,11 @@ export class ManaObjects extends Object {
     }
 
     public restoreMana(target: any): void {
-        console.log(`${this.getName()} is restoring mana to ${target}`);
+        if (target instanceof Caster || target instanceof Clerk) {
+            console.log(`${this.getName()} is restoring mana to ${target}`);
+            target.RestoreMana(this.manaAmount);
+        } else {
+            console.log(`${this.getName()} cannot restore mana to this target`);
+        }
     }
-    
 }
