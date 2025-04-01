@@ -21,10 +21,16 @@ export class Object {
 
 export class HealingObjects extends Object {
     private canResurrect: boolean;
+    private healingAmount: number;
 
-    public constructor(name: string, description: string, canResurrect: boolean) {
+    public constructor(name: string, description: string, healingAmount: number, canResurrect: boolean) {
         super(name, description);
+        this.healingAmount = healingAmount;
         this.canResurrect = canResurrect;
+    }
+
+    public getHealingAmount() {
+        return this.healingAmount;
     }
 
     public heal(target: any): void {
@@ -39,7 +45,25 @@ export class HealingObjects extends Object {
         }
     }
 
-    public canPerformResurrection(): boolean {
+    public getCanResurrect(): boolean {
         return this.canResurrect;
     }
+}
+
+export class ManaObjects extends Object {
+    private manaAmount: number;
+
+    public constructor(name: string, description: string, manaAmount: number) {
+        super(name, description);
+        this.manaAmount = manaAmount;
+    }
+
+    public getManaAmount() {
+        return this.manaAmount;
+    }
+
+    public restoreMana(target: any): void {
+        console.log(`${this.getName()} is restoring mana to ${target}`);
+    }
+    
 }

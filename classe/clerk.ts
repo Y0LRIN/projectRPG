@@ -48,4 +48,18 @@ class Clerk extends Character {
     target.currenthealth += heal;
     console.log(`${this.name} heals ${target.name} for ${heal} health!`);
     }
+
+    public RestoreMana(manaAmount) {
+        if (this.currentMana === this.maxMana) {
+            console.log(`${this.name} already has maximum mana!`);
+            return;
+        }
+        if (this.currentMana + manaAmount > this.maxMana) {
+            this.currentMana = this.maxMana;
+        }
+        else {
+            this.currentMana += manaAmount;
+        }
+        console.log(`${this.name} restores ${manaAmount} mana!`);
+    }
 }
