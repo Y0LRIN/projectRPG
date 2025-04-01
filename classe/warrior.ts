@@ -1,8 +1,8 @@
 import { Character } from '../Character';
 
-class Warrior extends Character {
-    constructor(name: string) {
-        super(name, 10, 3, 12, 20, 25, 25);
+export class Warrior extends Character {
+    constructor() {
+        super('Warrior', 10, 3, 12, 20, 25, 25);
     }
     
     public berserk(enemies: Character[]) {

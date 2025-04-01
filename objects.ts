@@ -1,5 +1,6 @@
 import { Caster } from './classe/caster';
 import { Clerk } from './classe/clerk';
+import { Team } from './team';
 
 export class Object {
     private name: string;
@@ -11,11 +12,19 @@ export class Object {
         this.description = description;
         this.useNbr = useNbr;
     }
-    public use(target: any): void {
+    public use(target: any, team: Team): void {
         console.log(`Using ${this.name} on ${target}`);
+        if (target instanceof HealingObjects) {
+            target.heal(target);
+        } else if (target instanceof ManaObjects) {
+            target.restoreMana(target);
+        } else {
+            console.log(`Cannot use ${this.name} on ${target}`);
+        }
         this.useNbr--;
         if (this.useNbr <= 0) {
             console.log(`${this.name} has no uses left!`);
+            team.removeFromInventory(this); // Use the team instance to remove the item
         } else {
             console.log(`${this.name} has ${this.useNbr} uses left!`);
         }
@@ -59,9 +68,22 @@ export class HealingObjects extends Object {
 
     public resurrect(target: any): void {
         if (this.canResurrect) {
-            console.log(`${this.getName()} is resurrecting ${target}`);
+            if (!target.isAlive()) {
+                target.currenthealth = target.maxHealth * (this.healingAmount / 100);
+                console.log(`${target.getName()} has been resurrected with ${target.currenthealth} health!`);
+            } else {
+                console.log(`${target.getName()} is already alive!`);
+            }
         } else {
             console.log(`${this.getName()} cannot resurrect`);
+        }
+    }
+
+    public healUse(target: any) {
+        if (this.canResurrect && !target.isAlive()) {
+            this.resurrect(target);
+        } else {
+            this.heal(target);
         }
     }
 

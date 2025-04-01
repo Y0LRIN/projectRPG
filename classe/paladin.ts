@@ -1,8 +1,8 @@
 import { Character } from "../Character";
 
-class Paladin extends Character {
-    constructor(name: string) {
-        super(name, 7, 12, 8, 20, 25, 25);
+export class Paladin extends Character {
+    constructor() {
+        super('Paladin', 7, 12, 8, 20, 25, 25);
     }
 
     public smite(targets: Character[]) {
