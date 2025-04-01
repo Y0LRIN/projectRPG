@@ -4,13 +4,21 @@ import { Clerk } from './classe/clerk';
 export class Object {
     private name: string;
     private description: string;
+    public useNbr: number;
 
-    public constructor(name: string, description: string) {
+    public constructor(name: string, description: string, useNbr: number) {
         this.name = name;
         this.description = description;
+        this.useNbr = useNbr;
     }
     public use(target: any): void {
         console.log(`Using ${this.name} on ${target}`);
+        this.useNbr--;
+        if (this.useNbr <= 0) {
+            console.log(`${this.name} has no uses left!`);
+        } else {
+            console.log(`${this.name} has ${this.useNbr} uses left!`);
+        }
     }   
 
     public getName(): string {
@@ -37,7 +45,16 @@ export class HealingObjects extends Object {
     }
 
     public heal(target: any): void {
-        console.log(`${this.getName()} is healing ${target}`);
+        if (target.isAlive()) {
+            if (target.currenthealth + this.healingAmount > target.maxHealth) {
+                target.currenthealth = target.maxHealth;
+            } else {
+                target.currenthealth += this.healingAmount;
+            }
+            console.log(`${target.getName()} healed for ${this.healingAmount} health!`);
+        } else {
+            console.log(`${target.getName()} is dead and cannot be healed!`);
+        }
     }
 
     public resurrect(target: any): void {
