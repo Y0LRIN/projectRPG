@@ -1,6 +1,6 @@
-import { Caster } from './classe/caster';
-import { Clerk } from './classe/clerk';
-import { Team } from './team';
+import { Caster } from './classe/caster.ts';
+import { Clerk } from './classe/clerk.ts';
+import { Team } from './team.ts';
 
 export class Object {
     private name: string;
@@ -40,13 +40,13 @@ export class Object {
 }
 
 export class HealingObjects extends Object {
-    private canResurrect: boolean;
+    private resurrectAmount: number;
     private healingAmount: number;
 
-    public constructor(name: string, description: string, useNbr: number, healingAmount: number, canResurrect: boolean) {
+    public constructor(name: string, description: string, useNbr: number, healingAmount: number, resurrectAmount: number) {
         super(name, description, useNbr);
         this.healingAmount = healingAmount;
-        this.canResurrect = canResurrect;
+        this.resurrectAmount = resurrectAmount;
     }
 
     public getHealingAmount() {
@@ -55,21 +55,21 @@ export class HealingObjects extends Object {
 
     public heal(target: any): void {
         if (target.isAlive()) {
-            if (target.currenthealth + this.healingAmount > target.maxHealth) {
+            if (target.currenthealth + target.maxHealth * (this.healingAmount / 100) > target.maxHealth) {
                 target.currenthealth = target.maxHealth;
             } else {
-                target.currenthealth += this.healingAmount;
+                target.currenthealth += target.maxHealth * (this.healingAmount / 100);
             }
-            console.log(`${target.getName()} healed for ${this.healingAmount} health!`);
+            console.log(`${target.getName()} healed for ${target.maxHealth * (this.healingAmount / 100)} health!`);
         } else {
             console.log(`${target.getName()} is dead and cannot be healed!`);
         }
     }
 
     public resurrect(target: any): void {
-        if (this.canResurrect) {
+        if (this.resurrectAmount != 0) {
             if (!target.isAlive()) {
-                target.currenthealth = target.maxHealth * (this.healingAmount / 100);
+                target.currenthealth = target.maxHealth * (this.resurrectAmount / 100);
                 console.log(`${target.getName()} has been resurrected with ${target.currenthealth} health!`);
             } else {
                 console.log(`${target.getName()} is already alive!`);
@@ -80,15 +80,11 @@ export class HealingObjects extends Object {
     }
 
     public healUse(target: any) {
-        if (this.canResurrect && !target.isAlive()) {
+        if (this.resurrectAmount != 0 && !target.isAlive()) {
             this.resurrect(target);
         } else {
             this.heal(target);
         }
-    }
-
-    public getCanResurrect(): boolean {
-        return this.canResurrect;
     }
 }
 

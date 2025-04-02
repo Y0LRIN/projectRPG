@@ -1,4 +1,4 @@
-import { Character } from './Character';
+import { Character } from './Character.ts';
 
 export class Team {
     private members: Character[];
@@ -32,14 +32,14 @@ export class Team {
     
 }
 
-import { Object } from './objects';
-import { HealingObjects } from './objects'; 
-import { ManaObjects } from './objects';
-import { Caster } from './classe/caster';
-import { Clerk } from './classe/clerk';
-import { Warrior } from './classe/warrior';
+import { Object } from './objects.ts';
+import { HealingObjects } from './objects.ts'; 
+import { ManaObjects } from './objects.ts';
+import { Caster } from './classe/caster.ts';
+import { Clerk } from './classe/clerk.ts';
+import { Warrior } from './classe/warrior.ts';
 
-new Team ( [
+const team = new Team ( [
     new Caster(),
     new Clerk(),
     new Warrior(),
