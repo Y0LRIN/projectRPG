@@ -16,7 +16,6 @@ export class Character {
                 DEF: number,
                 SPD: number,
                 maxHealth: number,
-                currenthealth: number,
                 healCap: number,
                 resurrectHealth: number) {
         this.name = name;
@@ -24,7 +23,7 @@ export class Character {
         this.DEF = DEF;
         this.SPD = SPD;
         this.maxHealth = maxHealth;
-        this.currenthealth = currenthealth;
+        this.currenthealth = maxHealth;
         this.healCap = healCap;
         this.resurrectHealth = resurrectHealth;
     }
@@ -62,8 +61,7 @@ export class Character {
             console.log(`${target.name} is dead and cannot be healed!`);
             return;
         }
-        let heal = this.maxHealth * (this.healCap / 100);
-        target.currenthealth += heal;
+        let heal = target.maxHealth * (this.healCap / 100);
         if (target.currenthealth > target.maxHealth) {
             target.currenthealth = target.maxHealth;
         }
