@@ -1,4 +1,4 @@
-import { Character } from "../Character";  
+import { Character } from "../Character.ts";  
 
 class Goblin extends Character {
   constructor() {

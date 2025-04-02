@@ -1,4 +1,4 @@
-import { Character } from './Character';
+import { Character } from './Character.ts';
 
 class Fight {
     private team: Character[];

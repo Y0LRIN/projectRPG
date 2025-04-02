@@ -1,4 +1,4 @@
-import { HealingObjects, ManaObjects } from "./objects";
+import { HealingObjects, ManaObjects } from "./objects.ts";
 
 const healPotion = new HealingObjects(
     'Healing Potion', 
