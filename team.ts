@@ -38,11 +38,19 @@ import { ManaObjects } from './objects.ts';
 import { Caster } from './classe/caster.ts';
 import { Clerk } from './classe/clerk.ts';
 import { Warrior } from './classe/warrior.ts';
+import { healPotion, ether } from './items.ts';
 
-const team = new Team ( [
+const HealPotion = healPotion;
+const Ether = ether;
+
+const adventurers = new Team([
     new Caster(),
     new Clerk(),
     new Warrior(),
-] );
+]);
 
-console.log( 'Team members:', team.getMembers() );
+adventurers.addToInventory(healPotion);
+adventurers.addToInventory(ether);
+
+console.log( 'Team members:', adventurers.getMembers() );
+console.log( 'Team inventory:', adventurers.getInventory() );
