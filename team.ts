@@ -40,10 +40,7 @@ import { Clerk } from './classe/clerk.ts';
 import { Warrior } from './classe/warrior.ts';
 import { healPotion, ether } from './items.ts';
 
-const HealPotion = healPotion;
-const Ether = ether;
-
-const adventurers = new Team([
+export const adventurers = new Team([
     new Caster(),
     new Clerk(),
     new Warrior(),
