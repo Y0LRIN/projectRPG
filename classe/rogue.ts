@@ -24,5 +24,6 @@ class Rogue extends Character {
             adventurers.addToInventory(halfStar);
         } else {
             console.log('You failed to steal anything.');
+        }
     }
 }
