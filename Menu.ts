@@ -1,100 +1,95 @@
-class menu {
-    //Properties
+class Menu {
     private menuID: number;
     private menuDisplay: string;
     public options: string[];
-    public selectedOption: string;
-    private selectedOptionHeros: string[];
+    private selectedOptionHeros: string[] = [];
 
     public getMenuID(): number {
         return this.menuID;
     }
 
-    //Constructor
     constructor(menuID: number, menuDisplay: string, options: string[]) {
         this.menuID = menuID;
         this.menuDisplay = menuDisplay;
         this.options = options;
     }
 
-    //Methods
-    //Method that displays the menu
     public displayMenu() {
         console.log(this.menuDisplay);
     }
 
-    //Method that displays the options
     public displayOptions() {
-        for (let i = 0; i<this.options.length; i++) {
+        for (let i = 0; i < this.options.length; i++) {
             if (this.options[i] !== "") {
-                console.log(`${i+1}. ${this.options[i]}`);
+                console.log(`${i + 1}. ${this.options[i]}`);
             }
         }
     }
 
-    //Method that selects an option
-    public selectOption() {
+    public selectOption(): string | null {
         let option = prompt("Selectionnez une option: ");
         if (option === null || !option.match(/^[1-8]$/) || option === "") {
-            console.log("Option Invalide.Slectionnez une option valide.");
+            console.log("Option Invalide. Sélectionnez une option valide.");
             return this.selectOption();
         }
         return option;
     }
 
-    public selectOptionHeros() {
-        let option = prompt("Select an option: ");
+    public selectOptionHeros(): string | null {
+        let option = prompt("Selection des héros: ");
         if (option === null || !option.match(/^[1-6]$/) || option === "") {
-            console.log("Option Invalide.Slectionnez une option valide.");
-            if (this.options.includes(selectedOptionHeros)) {
-                console.log("Vous avez déjà choisi ce héros.");
-            }
-            return this.selectOption();
-        }    
+            console.log("Option Invalide. Sélectionnez une option valide.");
+            return this.selectOptionHeros();
+        }
+
+        const selectedHero = this.options[parseInt(option) - 1];
+        if (this.selectedOptionHeros.includes(selectedHero)) {
+            console.log("Vous avez déjà choisi ce héros.");
+            return this.selectOptionHeros();
+        }
+
+        this.selectedOptionHeros.push(selectedHero);
         return option;
     }
-    
 
-
+    public getSelectedHeros(): string[] {
+        return this.selectedOptionHeros;
+    }
 }
 
-const Mainmenu = new menu(1, "Main Menu", ["Jouer","Quitter"]);
+function displayHeader(header: string) {
+    console.log("#///////////////////////////////////////////////////////////////#");
+    console.log("#                                                               #");
+    console.log(`# ${header} #`);
+    console.log("#                                                               #");
+    console.log("#///////////////////////////////////////////////////////////////#");
+}
 
-console.log("#///////////////////////////////////////////////////////////////#");
-console.log(" #                      Bienvenue dans                         #");
-console.log(" #                           RPG                               #");
-console.log(" #                       Tape Goblin                           #");
-console.log("#///////////////////////////////////////////////////////////////#");
+displayHeader("                Bienvenue dans RPG Tape Goblin               ");
 
-Mainmenu.displayMenu();
-Mainmenu.displayOptions();
-const selectedOption = Mainmenu.selectOption();
-if (selectedOption === "1") {}
-else if (selectedOption === "2") {console.log("Merci d'avoir joué à notre jeu !");
-    Deno.exit(0);}
+const mainMenu = new Menu(1, "Main Menu", ["Jouer", "Quitter"]);
+mainMenu.displayMenu();
+mainMenu.displayOptions();
+const selectedOption = mainMenu.selectOption();
 
-    console.log("#///////////////////////////////////////////////////////////////#")
-const Charatermenu = new menu(2, "#                            Heros                              #",
-    ["Guerrier","Mage","Paladin","Barbare","Prêtre","Voleur"]);
-    console.log("#                 choisie ton équipe de heros                   #")
-    console.log("#                                                               #")
-    console.log("#///////////////////////////////////////////////////////////////#")
-Charatermenu.displayMenu();
-Charatermenu.displayOptions();
+if (selectedOption === "1") {
+    displayHeader("                choisissez votre équipe de héros             ");
+    const characterMenu = new Menu(2, "Heros", ["Guerrier", "Mage", "Paladin", "Barbare", "Prêtre", "Voleur"]);
+    characterMenu.displayMenu();
+    characterMenu.displayOptions();
 
-const selectedOptionHeros1 = Charatermenu.selectOptionHeros();
-const selectedOptionHeros2 = Charatermenu.selectOptionHeros();
-const selectedOptionHeros3 = Charatermenu.selectOptionHeros();
+    characterMenu.selectOptionHeros();
+    characterMenu.selectOptionHeros();
+    characterMenu.selectOptionHeros();
 
-    console.log("#///////////////////////////////////////////////////////////////#")
-    console.log("#                                                               #")
-    console.log("#             vous avez choisi les heros suivants :             #")
-    console.log("#                                                               #")
-    console.log("#///////////////////////////////////////////////////////////////#")
-    console.log(`Heros 1 : ${Charatermenu.options[parseInt(selectedOptionHeros1)-1]}`);
-    console.log(`Heros 2 : ${Charatermenu.options[parseInt(selectedOptionHeros2)-1]}`);
-    console.log(`Heros 3 : ${Charatermenu.options[parseInt(selectedOptionHeros3)-1]}`);
-    console.log("#///////////////////////////////////////////////////////////////#")
-
-
+    displayHeader("              Vous avez choisi les héros suivants :          ");
+    const selectedHeros = characterMenu.getSelectedHeros();
+    selectedHeros.forEach((hero, index) => {
+        console.log(`Héros ${index + 1} : ${hero}`);
+    });
+    console.log("#///////////////////////////////////////////////////////////////#");
+} else if (selectedOption === "2") {
+    console.log("Merci d'avoir joué à notre jeu !");
+    Deno.exit(0);
+}
 
