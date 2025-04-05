@@ -1,4 +1,4 @@
-class menu {
+export class menu {
     //Properties
     private menuID: number;
     private menuDisplay: string;

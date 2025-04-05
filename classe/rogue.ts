@@ -3,7 +3,7 @@ import { ether, halfStar, healPotion, starShard } from '../items.ts';
 import { Team } from '../team.ts';
 import { adventurers } from '../team.ts';
 
-class Rogue extends Character {
+export class Rogue extends Character {
     constructor() {
         super("Rogue", 8, 5, 16, 20, 20, 20);
     }

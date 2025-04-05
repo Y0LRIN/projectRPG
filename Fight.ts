@@ -1,6 +1,6 @@
 import { Character } from './Character.ts';
 
-class Fight {
+export class Fight {
     private team: Character[];
     private enemies: Character[];
     private turnOrder: Character[];
