@@ -201,7 +201,9 @@ class GameManager {
         } else if (character instanceof Paladin) {
             character.smite(this.currentFight.getAliveEnemies());
         } else if (character instanceof Rogue) {
-            character.steal();
+            if (this.playerTeam) {
+                character.steal(this.playerTeam);
+            }
         } else if (character instanceof Clerk) {
             const allies = this.currentFight.getAliveTeamMembers();
             this.targetMenu.options = allies.map(ally => `${ally.name} (HP: ${ally.currenthealth}/${ally.maxHealth})`);

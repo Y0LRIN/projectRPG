@@ -32,22 +32,22 @@ export class Team {
     
 }
 
-import { Object } from './objects.ts';
-import { HealingObjects } from './objects.ts'; 
-import { ManaObjects } from './objects.ts';
-import { Caster } from './classe/caster.ts';
-import { Clerk } from './classe/clerk.ts';
-import { Warrior } from './classe/warrior.ts';
-import { healPotion, ether } from './items.ts';
+//import { Object } from './objects.ts';
+//import { HealingObjects } from './objects.ts'; 
+//import { ManaObjects } from './objects.ts';
+//import { Caster } from './classe/caster.ts';
+//import { Clerk } from './classe/clerk.ts';
+//import { Warrior } from './classe/warrior.ts';
+//import { healPotion, ether } from './items.ts';
 
-export const adventurers = new Team([
-    new Caster(),
-    new Clerk(),
-    new Warrior(),
-]);
+//export const adventurers = new Team([
+//    new Caster(),
+//    new Clerk(),
+//    new Warrior(),
+//]);
 
-adventurers.addToInventory(healPotion);
-adventurers.addToInventory(ether);
+//adventurers.addToInventory(healPotion);
+//adventurers.addToInventory(ether);
 
-console.log( 'Team members:', adventurers.getMembers() );
-console.log( 'Team inventory:', adventurers.getInventory() );
+//console.log( 'Team members:', adventurers.getMembers() );
+//console.log( 'Team inventory:', adventurers.getInventory() );
