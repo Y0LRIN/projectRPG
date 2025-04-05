@@ -1,4 +1,4 @@
-class Menu {
+export class Menu {
     private menuID: number;
     private menuDisplay: string;
     public options: string[];
