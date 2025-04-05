@@ -57,7 +57,7 @@ export class Menu {
     }
 }
 
-function displayHeader(header: string) {
+exportfunction displayHeader(header: string) {
     console.log("#///////////////////////////////////////////////////////////////#");
     console.log("#                                                               #");
     console.log(`# ${header} #`);
