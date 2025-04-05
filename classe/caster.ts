@@ -5,7 +5,7 @@ export class Caster extends Character {
     private currentMana : Number;  
     private attackMagic : Number;
 
-    constructor() {
+    constructor(maxMana: Number, currentMana: Number, attackMagic: Number) {
         super('Caster', 4, 5, 10, 25, 20, 20,);
         this.maxMana = 20;
         this.currentMana = 20;
