@@ -275,5 +275,61 @@ class GameManager {
         }
     }
 
+    private handleEnemyTurn(enemy: Character): void {
+        if (!this.currentFight) return;
 
+        const aliveTeamMembers = this.currentFight.getAliveTeamMembers();
+        if (aliveTeamMembers.length === 0) return;
+
+        if (enemy instanceof ogre) {
+            // Ogre has a 30% chance to use its special ability
+            if (Math.random() < 0.3) {
+                console.log(`${enemy.name} uses its special ability!`);
+                enemy.specialAttack(aliveTeamMembers); // Assuming `specialAttack` is defined for Ogre
+                return;
+            }
+        }
+
+        // 20% chance to attack the team member with the lowest health
+        if (Math.random() < 0.2) {
+            const target = aliveTeamMembers.reduce((lowest, member) => 
+                member.currenthealth < lowest.currenthealth ? member : lowest
+            );
+            console.log(`${enemy.name} targets the weakest member: ${target.name}`);
+            enemy.attack(target);
+        } else {
+            // 80% chance to attack a random team member
+            const randomTarget = aliveTeamMembers[Math.floor(Math.random() * aliveTeamMembers.length)];
+            console.log(`${enemy.name} attacks a random member: ${randomTarget.name}`);
+            enemy.attack(randomTarget);
+        }
+    }
+
+    private continueAdventure(): void {
+        displayHeader("            You continue your adventure...                  ");
+        const encounterType = Math.random() < 0.5 ? "goblin" : "boss";
+        this.startBattle(encounterType);
+    }
+
+    private gameOver(): void {
+        displayHeader("                Game Over!             ");
+        console.log("Your party has been defeated...");
+        console.log("Would you like to play again?");
+        this.Mainmenu.options = ["Continue", "Exit"];
+        this.Mainmenu.displayMenu();
+        this.Mainmenu.displayOptions();
+        const choice = this.Mainmenu.selectOption();
+        if (choice === "1") {
+            this.playerTeam = null;
+            this.currentFight = null;
+            this.Mainmenu.options = ["Play", "Exit"];
+            this.createTeam();
+        } else {
+            console.log("Thank you for playing!");
+            Deno.exit(0);
+        }
+    }
 }
+
+const game = new GameManager();
+game.start();
