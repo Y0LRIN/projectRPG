@@ -85,6 +85,7 @@ class GameManager {
 
         this.playerTeam = new Team(selectedHeroes);
         this.playerTeam.addToInventory(healPotion);
+        this.playerTeam.addToInventory(healPotion);
         this.playerTeam.addToInventory(ether);
         this.playerTeam.addToInventory(starShard);
 
@@ -226,5 +227,53 @@ class GameManager {
         }
     }
 
-    
+    private handleItemUse(character: Character): void {
+        if (!this.playerTeam) return;
+
+        const inventory = this.playerTeam.getInventory();
+        if (inventory.length === 0) {
+            console.log("No items in inventory.");
+            return;
+        }
+
+        this.itemMenu.options = inventory.map(item => item.getName());
+        this.itemMenu.displayMenu();
+        this.itemMenu.displayOptions();
+        const itemChoice = this.itemMenu.selectOption();
+        const itemIndex = parseInt(itemChoice!) - 1;
+
+        if (itemIndex >= 0 && itemIndex < inventory.length) {
+            const selectedItem = inventory[itemIndex];
+            if (selectedItem.constructor.name === "HealingObjects") {
+                const allies = this.currentFight!.getAliveTeamMembers();
+                this.targetMenu.options = allies.map(ally => `${ally.name} (HP: ${ally.currenthealth}/${ally.maxHealth})`);
+                this.targetMenu.displayMenu();
+                this.targetMenu.displayOptions();
+                const targetChoice = this.targetMenu.selectOption();
+                const targetIndex = parseInt(targetChoice!) - 1;
+                if (targetIndex >= 0 && targetIndex < allies.length) {
+                    selectedItem.use(allies[targetIndex], this.playerTeam);
+                }
+            } else if (selectedItem.constructor.name === "ManaObjects") {
+                const manaUsers = this.currentFight!.getAliveTeamMembers().filter(
+                    member => member instanceof Caster || member instanceof Clerk
+                );
+                if (manaUsers.length === 0) {
+                    console.log("No mana users in the team.");
+                    return;
+                }
+
+                this.targetMenu.options = manaUsers.map(manaUser => `${manaUser.name} (MP: ${manaUser.currentMana}/${manaUser.maxMana})`);
+                this.targetMenu.displayMenu();
+                this.targetMenu.displayOptions();
+                const targetChoice = this.targetMenu.selectOption();
+                const targetIndex = parseInt(targetChoice!) - 1;
+                if (targetIndex >= 0 && targetIndex < manaUsers.length) {
+                    selectedItem.use(manaUsers[targetIndex], this.playerTeam);
+                }
+            }
+        }
+    }
+
+
 }
