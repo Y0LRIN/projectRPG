@@ -1,8 +1,8 @@
 import { Character } from "../Character.ts";
 
 export class Clerk extends Character {
-    private maxMana: number;
-    private currentMana: number;
+    public maxMana: number;
+    public currentMana: number;
     private healMagic: number;
     
     constructor() {

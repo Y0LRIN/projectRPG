@@ -4,6 +4,7 @@ export class Fight {
     private team: Character[];
     private enemies: Character[];
     private turnOrder: Character[];
+    private currentTurnIndex: number = 0;
     
     public constructor(team: Character[], enemies: Character[]) {
         this.team = team;
@@ -13,33 +14,57 @@ export class Fight {
 
     public start() {
         console.log('The fight begins!');
-        this.fightTurn(0);
+        this.displayBattlefield();
+        return this.getCurrentTurn();
     }
 
-    private fightTurn(index: number) {
+    public getCurrentTurn(): Character | null {
         if (this.checkEnd()) {
-            return;
+            return null;
         }
-        if (index >= this.turnOrder.length) {
-            this.fightTurn(0);
-            return;
-        }
-        const character = this.turnOrder[index];
-        if (character.isAlive()) {
-            if (this.team.includes(character)) {
-                this.teamTurn(character);
-            } else {
-                this.enemyTurn(character);
+        while (this.currentTurnIndex < this.turnOrder.length) {
+            const character = this.turnOrder[this.currentTurnIndex];
+            if (character.isAlive()) {
+                return character;
             }
+            this.currentTurnIndex = (this.currentTurnIndex + 1) % this.turnOrder.length;
         }
-        this.fightTurn(index + 1);
+        return null;
     }
 
-    private teamTurn(character: Character) {}
+    public nextTurn(): Character | null {
+        this.currentTurnIndex = (this.currentTurnIndex + 1) % this.turnOrder.length;
+        this.displayBattlefield();
+        return this.getCurrentTurn();
+    }
 
-    private enemyTurn(character: Character) {}
+    public isPlayerCharacter(character: Character): boolean {
+        return this.team.includes(character);
+    }
 
-    private checkEnd() {
+    public getAliveEnemies(): Character[] {
+        return this.enemies.filter(enemy => enemy.isAlive());
+    }
+
+    public getAliveTeamMembers(): Character[] {
+        return this.team.filter(member => member.isAlive());
+    }
+
+    public displayBattlefield() {
+        console.log("\n=== BATTLEFIELD ===");
+        console.log("Your team:");
+        this.team.forEach(character => {
+            console.log(`${character.name}: ${character.currenthealth}/${character.maxHealth} HP ${character.isAlive() ? "" : "(DEAD)"}`);
+        });
+
+        console.log("\nEnemies:");
+        this.enemies.forEach(character => {
+            console.log(`${character.name}: ${character.currenthealth}/${character.maxHealth} HP ${character.isAlive() ? "" : "(DEAD)"}`);
+        });
+        console.log("====================\n");
+    }
+
+    public checkEnd(): boolean {
         if (this.team.every(character => !character.isAlive())) {
             console.log('The fight is over! The enemies win!');
             return true;

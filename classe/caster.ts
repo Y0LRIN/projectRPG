@@ -1,8 +1,8 @@
 import { Character } from '../Character.ts';
 
 export class Caster extends Character {
-    private maxMana : Number;
-    private currentMana : Number;  
+    public maxMana : Number;
+    public currentMana : Number;  
     private attackMagic : Number;
 
     constructor() {

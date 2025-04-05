@@ -152,7 +152,7 @@ class GameManager {
             }
             currentCharacter = this.currentFight.nextTurn();
         }
-        if (this.playerteam && this.playerTeam.getMembers().some(char => char.isAlive())) {
+        if (this.playerTeam && this.playerTeam.getMembers().some(char => char.isAlive())) {
             console.log("You have won the battle!");
             this.continueAdventure();
         } else {
