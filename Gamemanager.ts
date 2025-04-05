@@ -160,5 +160,62 @@ class GameManager {
         }
     }
 
-    
+    private handlePlayerTurn(character: Character): void {
+        if (!this.currentFight) return;
+
+        this.battleMenu.displayMenu();
+        this.battleMenu.displayMenu();
+        const choice = this.battleMenu.selectOption();
+
+        switch(choice) {
+            case "1": //Attack
+                const enemies = this.currentFight.getAliveEnemies();
+                this.targetMenu.options = enemies.map(enemy => `${enemy.name} (HP: ${enemy.currenthealth}/${enemy.maxHealth})`);
+                this.targetMenu.displayMenu();
+                this.targetMenu.displayOptions();
+                const targetChoice = this.targetMenu.selectOption();
+                const targetIndex = parseInt(targetChoice!)-1;
+                if (targetIndex >= 0 && targetIndex < enemies.length) {
+                    character.attack(enemies[targetIndex]);
+                }
+                break;
+                
+            case "2": //Special ability
+                this.handleSpecialAbility(character);
+                break;
+
+            case "3": //Item
+                if (this.playerTeam) {
+                    this.handleItemUse(character);
+                }
+                break;
+        }
+    }
+
+    private handleSpecialAbility(character: Character): void {
+        if (!this.currentFight) return;
+        
+        if (character instanceof Warrior) {
+            character.berserk(this.currentFight.getAliveEnemies());
+        } else if (character instanceof Paladin) {
+            character.smite(this.currentFight.getAliveEnemies());
+        } else if (character instanceof Rogue) {
+            character.steal();
+        } else if (character instanceof Clerk) {
+            const allies = this.currentFight.getAliveTeamMembers();
+            this.targetMenu.options = allies.map(ally => `${ally.name} (HP: ${ally.currenthealth}/${ally.maxHealth})`);
+            this.targetMenu.displayMenu();
+            this.targetMenu.displayOptions();
+            const targetChoice = this.targetMenu.selectOption();
+            const targetIndex = parseInt(targetChoice!) - 1;
+            if (targetIndex >= 0 && targetIndex < allies.length) {
+                (character as any).magicHeal(allies[targetIndex]); 
+            }
+        } else if (character instanceof Caster) {
+            const enemies = this.currentFight.getAliveEnemies();
+            this.targetMenu.options = enemies.map(enemy => `${enemy.name} (HP: ${enemy.currenthealth}/${enemy.maxHealth})`);
+            this.targetMenu.displayMenu();
+            this.targetMenu.displayOptions();
+        }
+    }
 }
