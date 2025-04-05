@@ -216,6 +216,15 @@ class GameManager {
             this.targetMenu.options = enemies.map(enemy => `${enemy.name} (HP: ${enemy.currenthealth}/${enemy.maxHealth})`);
             this.targetMenu.displayMenu();
             this.targetMenu.displayOptions();
+            const targetChoice = this.targetMenu.selectOption();
+            const targetIndex = parseInt(targetChoice!) - 1;
+            if (targetIndex >= 0 && targetIndex < enemies.length) {
+                (character as any).fireball(enemies[targetIndex]); 
+            }
+        } else {
+            console.log(`${character.name} has no special ability.`);
         }
     }
+
+    
 }
