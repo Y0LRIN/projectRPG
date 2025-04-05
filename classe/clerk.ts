@@ -5,7 +5,7 @@ export class Clerk extends Character {
     private currentMana: number;
     private healMagic: number;
     
-    constructor() {
+    constructor(maxMana: number, currentMana: number, healMagic: number) {
         super('Clerk', 20, 20, 20, 20, 20, 20);
         this.maxMana = 20;
         this.currentMana = 20;
