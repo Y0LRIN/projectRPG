@@ -5,7 +5,7 @@ import { Team } from '../team.ts';
 
 export class Rogue extends Character {
     constructor() {
-        super("Rogue", 8, 5, 16, 20, 20, 20);
+        super("Rogue", 10, 4, 12, 20, 20, 20);
     }
 
     public steal(team: Team): void {

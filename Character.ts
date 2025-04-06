@@ -48,8 +48,8 @@ export class Character {
             return;
         }
         let damage = this.ATK - target.DEF;
-        if (damage < 0) {
-            damage = 0;
+        if (damage <= 0) {
+            damage = 1;
         }
         target.currenthealth -= damage;
         if (target.currenthealth < 0) {

@@ -1,50 +1,60 @@
 import { Character } from '../Character.ts';
 
 export class Caster extends Character {
-    public maxMana : Number;
-    public currentMana : Number;  
-    private attackMagic : Number;
+    public maxMana : number;
+    public currentMana : number;  
+    private attackMagic : number;
 
     constructor() {
-        super('Caster', 4, 5, 10, 25, 20, 20,);
-        this.maxMana = 20;
-        this.currentMana = 20;
-        this.attackMagic = 10;
+        super('Caster', 5, 4, 9, 20, 20, 20,);
+        this.maxMana = 25;
+        this.currentMana = 25;
+        this.attackMagic = 12;
 
     }
-public attack(target: Character): void {
-    if (!this.isAlive()) {
-        console.log(`${this.name} is dead and cannot attack!`);
-        return;
+    public attack(target: Character) {
+        if (!this.isAlive()) {
+            console.log(`${this.name} is dead and cannot attack!`);
+            return;
+        }
+        if (!target.isAlive()) {
+            console.log(`${target.name} is dead and cannot be attacked!`);
+            return;
+        }
+        let damage = this.ATK - target.DEF;
+        if (damage <= 0) {
+            damage = 1;
+        }
+        target.currenthealth -= damage;
+        if (target.currenthealth < 0) {
+            target.currenthealth = 0;
+        }
+        console.log(`${this.name} attacks ${target.name} for ${damage} damage!`);
     }
-    if (!target.isAlive()) {
-        console.log(`${target.name} is already dead!`);
-        return;
-    }
-    
-    let damage = Math.max(this.ATK - target.DEF, 0);
-     let result = target.currenthealth - damage;
-    if (result < 0) {
-        target.currenthealth = 0;
-    }
-    else {
-        target.currenthealth = result;
-    }
-    console.log(`${this.name} attacks ${target.name} for ${damage} damage!`);
 
-}
-
-public DamageMagic(target: Character): void {
-    if (!this.isAlive()) {
-        console.log(`${this.name} is dead and cannot attack!`);
-        return;
+    public DamageMagic(target: Character): void {
+        if (!this.isAlive()) {
+            console.log(`${this.name} is dead and cannot attack!`);
+            return;
+        }
+        if (!target.isAlive()) {
+            console.log(`${target.name} is already dead!`);
+            return;
+        }
+        
+        if (this.currentMana < 8) {
+            console.log(`${this.name} does not have enough mana!`);
+            return;
+        }
+        
+        this.currentMana -= 8;
+        let damage = this.attackMagic;
+        target.currenthealth -= damage;
+        if (target.currenthealth < 0) {
+            target.currenthealth = 0;
+        }
+        console.log(`${this.name} casts a spell on ${target.name} for ${damage} damage!`);
     }
-    if (!target.isAlive()) {
-        console.log(`${target.name} is already dead!`);
-        return;
-    }
-    
-}
     public RestoreMana(manaAmount) {
         if (this.currentMana === this.maxMana) {
             console.log(`${this.name} already has maximum mana!`);

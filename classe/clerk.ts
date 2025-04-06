@@ -6,7 +6,7 @@ export class Clerk extends Character {
     private healMagic: number;
     
     constructor() {
-        super('Clerk', 5, 8, 7, 20, 20, 20);
+        super('Clerk', 4, 7, 8, 20, 20, 20);
         this.maxMana = 30;
         this.currentMana = 30;
         this.healMagic = 10;
@@ -23,6 +23,9 @@ export class Clerk extends Character {
             return;
         }
         let damage = this.ATK - target.DEF;
+        if (damage <= 0) {
+            damage = 1;
+        }
         target.currenthealth -= damage;
         if (target.currenthealth < 0) {
             target.currenthealth = 0;

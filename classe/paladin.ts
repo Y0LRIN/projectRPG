@@ -2,7 +2,7 @@ import { Character } from "../Character.ts";
 
 export class Paladin extends Character {
     constructor() {
-        super('Paladin', 7, 12, 8, 20, 25, 25);
+        super('Paladin', 8, 9, 7, 20, 25, 25);
     }
 
     public smite(targets: Character[]) {
@@ -16,7 +16,10 @@ export class Paladin extends Character {
             return;
         }
         const targetEnemy = aliveEnemies[Math.floor(Math.random() * aliveEnemies.length)];
-        let damage = this.ATK * 1.5 - targetEnemy.DEF;
+        let damage = this.ATK * 0.4 - targetEnemy.DEF;
+        if (damage <= 0) {
+            damage = 1;
+        }
         targetEnemy.currenthealth -= damage;
         if (targetEnemy.currenthealth < 0) {
             targetEnemy.currenthealth = 0;

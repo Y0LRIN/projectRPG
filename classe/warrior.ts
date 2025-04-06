@@ -2,7 +2,7 @@ import { Character } from '../Character.ts';
 
 export class Warrior extends Character {
     constructor() {
-        super('Warrior', 10, 3, 12, 20, 25, 25);
+        super('Warrior', 12, 5, 8, 20, 25, 25);
     }
     
     public berserk(enemies: Character[]) {
@@ -17,6 +17,9 @@ export class Warrior extends Character {
         }
         const target = aliveEnemies[Math.floor(Math.random() * aliveEnemies.length)];
         let damage = this.ATK * 1.3 - target.DEF;
+        if (damage <= 0) {
+            damage = 2;
+        }
         target.currenthealth -= damage;
         if (target.currenthealth < 0) {
             target.currenthealth = 0;

@@ -263,7 +263,7 @@ export class GameManager {
         if (!this.currentFight) return;
 
         this.battleMenu.displayMenu();
-        this.battleMenu.displayMenu();
+        this.battleMenu.displayOptions();
         const choice = this.battleMenu.selectOption();
 
         switch(choice) {

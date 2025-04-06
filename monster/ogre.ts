@@ -2,7 +2,7 @@ import { Character } from "../Character.ts";
 
 export class ogre extends Character {
   constructor() {
-    super("ogre", 15, 14, 1 ,50 ,20 ,20);
+    super("ogre", 16, 10, 2 ,50 ,20 ,20);
   }
 
   public specialAttack(targets: Character[]) {
@@ -17,6 +17,9 @@ export class ogre extends Character {
     }
     const targetEnemy = aliveEnemies[Math.floor(Math.random() * aliveEnemies.length)];
     let damage = this.ATK * 1.5 - targetEnemy.DEF;
+    if (damage <= 0) {
+        damage = 1;
+    }
     targetEnemy.currenthealth -= damage;
     if (targetEnemy.currenthealth < 0) {
         targetEnemy.currenthealth = 0;

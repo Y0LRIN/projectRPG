@@ -2,7 +2,7 @@ import { Character } from "../Character.ts";
 
 export class Knight extends Character {
     constructor() {
-        super('Knight', 10, 8, 10, 20, 20, 20);
+        super('Knight', 9, 10, 6, 20, 20, 20);
     }
     public attack(target: Character) {
         if (!this.isAlive()) {
@@ -14,6 +14,9 @@ export class Knight extends Character {
             return;
         }
         let damage = this.ATK - target.DEF;
+        if (damage <= 0) {
+            damage = 1;
+        }
         target.currenthealth -= damage;
         if (target.currenthealth < 0) {
             target.currenthealth = 0;

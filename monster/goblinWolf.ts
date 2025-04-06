@@ -2,6 +2,6 @@ import { Character } from "../Character.ts";
 
 export class GoblinWolf extends Character {
   constructor() {
-    super("Goblin Wolf", 12, 3, 15,15,20,20);
+    super("Goblin Wolf", 9, 3, 11,15,20,20);
   }
 }

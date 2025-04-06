@@ -65,7 +65,7 @@ export function displayHeader(header: string) {
     console.log("#///////////////////////////////////////////////////////////////#");
 }
 
-displayHeader("                Bienvenue dans RPG Tape Goblin               ");
+/* displayHeader("                Bienvenue dans RPG Tape Goblin               ");
 
 const mainMenu = new Menu(1, "Main Menu", ["Jouer", "Quitter"]);
 mainMenu.displayMenu();
@@ -91,4 +91,4 @@ if (selectedOption === "1") {
 } else if (selectedOption === "2") {
     console.log("Merci d'avoir joué à notre jeu !");
     Deno.exit(0);
-}
+} */
