@@ -6,9 +6,9 @@ export class Clerk extends Character {
     private healMagic: number;
     
     constructor() {
-        super('Clerk', 20, 20, 20, 20, 20, 20);
-        this.maxMana = 20;
-        this.currentMana = 20;
+        super('Clerk', 5, 8, 7, 20, 20, 20);
+        this.maxMana = 30;
+        this.currentMana = 30;
         this.healMagic = 10;
     }
 
@@ -29,7 +29,7 @@ export class Clerk extends Character {
         }
         console.log(`${this.name} attacks ${target.name} for ${damage} damage!`);
     }
-    protected magicHeal(target: Character): void {
+    public magicHeal(target: Character): void {
 
         if (!this.isAlive()) {
         console.log(`${this.name} is dead and cannot heal!`);
