@@ -1,13 +1,13 @@
 import { Character } from '../Character.ts';
 import { ether, halfStar, healPotion, starShard } from '../items.ts';
 import { Team } from '../team.ts';
-//import { adventurers } from '../team.ts';
 
 export class Rogue extends Character {
     constructor() {
         super("Rogue", 10, 4, 12, 20, 20, 20);
     }
 
+    // Steal add a random item to the team inventory
     public steal(team: Team): void {
         const roll = Math.floor(Math.random() *100);
         if (roll >= 40 && roll < 70) {

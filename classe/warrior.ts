@@ -5,6 +5,7 @@ export class Warrior extends Character {
         super('Warrior', 12, 5, 8, 20, 25, 25);
     }
     
+    // Berserk deals 30% more damage to a random enemy but takes 20% of max health as damage
     public berserk(enemies: Character[]) {
         if (!this.isAlive()) {
             console.log(`${this.name} is dead and cannot attack!`);

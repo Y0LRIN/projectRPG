@@ -1,5 +1,6 @@
 import { Character } from './Character.ts';
 
+// The Team class manages a collection of characters and their inventory
 export class Team {
     private members: Character[];
     private inventory: Object[] = [];

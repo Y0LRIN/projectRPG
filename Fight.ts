@@ -12,6 +12,7 @@ export class Fight {
         this.turnOrder = [...team, ...enemies].sort((a, b) => b.SPD - a.SPD);
     }
 
+    // Start the fight
     public start() {
         console.log('The fight begins!');
         this.displayBattlefield();
@@ -54,6 +55,7 @@ export class Fight {
         return this.team;
     }
 
+    // Displays team and enemies on the battlefield
     public displayBattlefield() {
         console.log("\n=== BATTLEFIELD ===");
         console.log("Your team:");

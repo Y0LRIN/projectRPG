@@ -71,6 +71,7 @@ export class GameManager {
         }
     }
 
+    // Create a team of heroes
     private createTeam(): void {
         displayHeader("                Choose your team of heroes                ");
 
@@ -116,6 +117,7 @@ export class GameManager {
         this.enterCurrentRoom();
     }
 
+    // Enter the current room and handle its events
     private enterCurrentRoom(): void {
         if (!this.playerTeam || this.currentRoomIndex >= this.rooms.length) {
             return;
@@ -146,6 +148,8 @@ export class GameManager {
         }
     }
 
+    // Show options for the current room
+    // Player can choose to continue, check inventory, or view team status
     private showRoomOptions(): void {
         this.roomMenu.displayMenu();
         this.roomMenu.displayOptions();
@@ -205,6 +209,7 @@ export class GameManager {
         }
     }
 
+    // Start a battle with the given enemies
     private startBattleWithEnemies(enemies: Character[]): void {
         if (!this.playerTeam) {
             console.log("Error: Player team is not initialized.");
@@ -260,6 +265,7 @@ export class GameManager {
         }
     }
 
+    // Handle the player's turn during combat
     private handlePlayerTurn(character: Character): void {
         if (!this.currentFight) return;
 
@@ -292,6 +298,7 @@ export class GameManager {
         }
     }
 
+    // Handle the special abilities of the characters
     private handleSpecialAbility(character: Character): void {
         if (!this.currentFight) return;
         
@@ -328,6 +335,7 @@ export class GameManager {
         }
     }
 
+    // Handle item usage during combat
     private handleItemUse(character: Character): void {
         if (!this.playerTeam) return;
 
@@ -449,6 +457,7 @@ export class GameManager {
     }
 }
 
+// RoomNavigator class to create a dungeon with different rooms
 class RoomNavigator {
     public createDungeon(): Rooms[] {
         return [

@@ -5,6 +5,7 @@ export class Paladin extends Character {
         super('Paladin', 8, 9, 7, 20, 25, 25);
     }
 
+    // Special attack that can be used to attack multiple targets
     public smite(targets: Character[]) {
         if (!this.isAlive()) {
             console.log(`${this.name} is dead and cannot attack!`);
