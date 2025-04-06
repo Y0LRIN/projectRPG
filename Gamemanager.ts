@@ -1,5 +1,4 @@
-import { Menu } from "./Menu.ts";
-import { displayHeader } from "./Menu.ts";
+import { Menu, displayHeader } from "./Menu.ts";
 import { Team } from "./team.ts";
 import { Character} from "./Character.ts";
 import { Fight} from "./Fight.ts";
@@ -9,23 +8,23 @@ import { Paladin } from "./classe/paladin.ts";
 import { Caster } from "./classe/caster.ts";
 import { Clerk } from "./classe/clerk.ts";
 import { Rogue } from "./classe/rogue.ts";
-import { Goblin } from "./monster/goblin.ts";
-import { GoblinWolf } from "./monster/goblinWolf.ts";
-import { GoblinArtcher } from "./monster/goblinArtcher.ts";
-import { GoblinMage } from "./monster/goblinMage.ts";
-import { ogre } from "./monster/ogre.ts";
 import { healPotion, ether, starShard, halfStar } from "./items.ts";
+import { Rooms, RoomType } from "./rooms.ts";
 
 class GameManager {
-    private Mainmenu = new Menu(1, "Main Menu", ["Play","Exit"]);
-    private characterMenu = new Menu(2, "Heroes", ["Warrior", "Knight", "Paladin", "Caster", "Clerk", "Rogue"]);
-    private battleMenu = new Menu(3, "Battle", ["Attack","Special", "Item", "Run"]);
-    private targetMenu = new Menu(4, "Target", []);
-    private itemMenu = new Menu(5, "Item", []);
+    private Mainmenu: Menu;
+    private characterMenu: Menu;
+    private battleMenu: Menu;
+    private targetMenu: Menu;
+    private itemMenu: Menu;
+    private roomMenu: Menu;
 
     private playerTeam: Team | null = null;
     private currentFight: Fight | null = null;
     private gameRunning: boolean = true;
+    private rooms: Rooms[] = [];
+    private currentRoomIndex: number = 0;
+    private roomNavigator: RoomNavigator;
 
     private characterClasses: { [key: string]: new () => Character } = {
         "Warrior": Warrior,
@@ -37,7 +36,18 @@ class GameManager {
     };
 
     constructor() {
+        this.Mainmenu = new Menu(1, "Main Menu", ["Play", "Exit"]);
+        this.characterMenu = new Menu(2, "Heroes", ["Warrior", "Knight", "Paladin", "Caster", "Clerk", "Rogue"]);
+        this.battleMenu = new Menu(3, "Battle", ["Attack", "Special Ability", "Item"]);
+        this.targetMenu = new Menu(4, "Target", []);
+        this.itemMenu = new Menu(5, "Items", []);
+        this.roomMenu = new Menu(6, "Room Navigation", ["Continue to next room", "Check inventory", "View team status"]);
+        this.roomNavigator = new roomNavigator();
+        this.initRooms();
+    }
 
+    public initRooms(): void {
+        this.rooms = this.roomNavigator.createDungeon();
     }
 
     public start(): void {
@@ -100,31 +110,111 @@ class GameManager {
 
     private startAdventure(): void {
         displayHeader("                Adventure Begins!             ");
-        this.startBattle("goblin");
+        this.currentRoomIndex = 0;
+        this.enterCurrentRoom();
     }
 
-    private startBattle(encounterType: string): void {
+    private enterCurrentRoom(): void {
+        if (!this.playerTeam || this.currentRoomIndex >= this.rooms.length) {
+            return;
+        }
+
+        const currentRoom = this.rooms[this.currentRoomIndex];
+        displayHeader(`                You enter a ${currentRoom.type} room!             `);
+
+        switch (currentRoom.getRoomType()) {
+            case RoomType.EASY_BATTLE:
+                console.log("You encounter a group of goblins!");
+                this.startBattleWithEnemies(currentRoom.getEnemies());
+                break;
+            case RoomType.HARD_BATTLE:
+                console.log("You encounter a strong group of goblins!");
+                this.startBattleWithEnemies(currentRoom.getEnemies());
+                break;
+            case RoomType.CHEST:
+                console.log("You find a chest in the center of the room!");
+                currentRoom.handleChest(this.playerTeam);
+                currentRoom.setCompleted(true);
+                this.showRoomOptions();
+                break;
+            case RoomType.BOSS_BATTLE:
+                console.log("You've reached the boss room! Prepare for a tough battle!");
+                this.startBattleWithEnemies(currentRoom.getEnemies());
+                break;
+        }
+    }
+
+    private showRoomOptions(): void {
+        this.roomMenu.displayMenu();
+        this.roomMenu.displayOptions();
+        const choice = this.roomMenu.selectOption();
+
+        switch (choice) {
+            case "1":
+                this.moveToNextRoom();
+                break;
+            case "2":
+                this.showInventory();
+                this.showRoomOptions();
+                break;
+            case "3":
+                this.showTeamStatus();
+                this.showRoomOptions();
+                break;
+        }
+    }
+
+    private showInventory(): void {
+        if (!this.playerTeam) return;
+
+        const inventory = this.playerTeam.getInventory();
+
+        console.log("\n=== INVENTORY ===");
+        if (inventory.length === 0) {
+            console.log("Your inventory is empty.");
+        } else {
+            inventory.forEach((item, index) => {
+                console.log(`${index + 1}, ${item.getName()} - ${item.getDescription()}`);
+            });
+        }
+        console.log("=================\n");
+    }
+
+    private showTeamStatus(): void {
+        if (!this.playerTeam) return;
+
+        const members = this.playerTeam.getMembers();
+        console.log("\n=== TEAM STATUS ===");
+        members.forEach(member => {
+            console.log(`${member.name}: ${member.currenthealth}/${member.maxHealth} HP ${member.isAlive() ? "" : "(DEAD)"}`);
+            if (member instanceof Caster || member instanceof Clerk) {
+                console.log(`Mana: ${member.currentMana}/${member.maxMana}`);
+            }
+        });
+        console.log("=================\n");
+    }
+
+    private moveToNextRoom(): void {
+        if (this.currentRoomIndex < this.rooms.length - 1) {
+            this.currentRoomIndex++;
+            this.enterCurrentRoom();
+        } else {
+            console.log("You've reached the end of the dungeon!");
+        }
+    }
+
+    private startBattleWithEnemies(enemies: Character[]): void {
         if (!this.playerTeam) {
-            console.log("Error: No player team created.");
+            console.log("Error: Player team is not initialized.");
             return;
         }
 
         displayHeader("                Battle Begins!             ");
-
-        const enemies: Character[] = [];
-        if (encounterType === "goblin") {
-            enemies.push(new Goblin());
-            enemies.push(new GoblinWolf());
-            enemies.push(new GoblinArtcher());
-        } else if (encounterType === "boss") {
-            enemies.push(new GoblinMage());
-            enemies.push(new ogre());
-        }
-
-        console.log("You encounter:");
+        console.log("Enemies: ");
         enemies.forEach(enemy => {
             console.log(`- ${enemy.name} (HP: ${enemy.currenthealth}/${enemy.maxHealth})`);
         });
+
         this.currentFight = new Fight(this.playerTeam.getMembers(), enemies);
         this.manageBattle();
     }
@@ -152,11 +242,18 @@ class GameManager {
             }
             currentCharacter = this.currentFight.nextTurn();
         }
+        const currentRoom = this.rooms[this.currentRoomIndex];
         if (this.playerTeam && this.playerTeam.getMembers().some(char => char.isAlive())) {
             console.log("You have won the battle!");
-            this.continueAdventure();
+            currentRoom.setCompleted(true);
+
+            if (currentRoom.getRoomType() === RoomType.BOSS_BATTLE) {
+                this.victoryEnding();
+            } else {
+                this.showRoomOptions();
+            }
         } else {
-            console.log("You have been defeated. Game Over.");
+            console.log("You have been defeated...");
             this.gameOver();
         }
     }
@@ -307,10 +404,26 @@ class GameManager {
         }
     }
 
-    private continueAdventure(): void {
-        displayHeader("            You continue your adventure...                  ");
-        const encounterType = Math.random() < 0.5 ? "goblin" : "boss";
-        this.startBattle(encounterType);
+    private victoryEnding(): void {
+        displayHeader("                Victory!             ");
+        console.log("Congratulations! You have defeated the boss and completed the dungeon!");
+        console.log("The goblins have been vanquished, and peace has returned to the land.");
+        console.log("You and your team are hailed as heroes!");
+        console.log("\nWould you like to play again?");
+        this.Mainmenu.options = ["Play Again", "Exit"];
+        this.Mainmenu.displayMenu();
+        this.Mainmenu.displayOptions();
+        const choice = this.Mainmenu.selectOption();
+        if (choice === "1") {
+            this.playerTeam = null;
+            this.currentFight = null;
+            this.initRooms();
+            this.Mainmenu.options = ["Play", "Exit"];
+            this.createTeam();
+        } else {
+            console.log("Thank you for playing!");
+            Deno.exit(0);
+        }
     }
 
     private gameOver(): void {
@@ -324,6 +437,7 @@ class GameManager {
         if (choice === "1") {
             this.playerTeam = null;
             this.currentFight = null;
+            this.initRooms();
             this.Mainmenu.options = ["Play", "Exit"];
             this.createTeam();
         } else {
@@ -333,5 +447,14 @@ class GameManager {
     }
 }
 
-const game = new GameManager();
-game.start();
+class RoomNavigator {
+    public createDungeon(): Rooms[] {
+        return [
+            new Rooms(1, RoomType.EASY_BATTLE),
+            new Rooms(2, RoomType.CHEST),
+            new Rooms(3, RoomType.HARD_BATTLE),
+            new Rooms(4, RoomType.CHEST),
+            new Rooms(5, RoomType.BOSS_BATTLE),
+        ];
+    }
+}
