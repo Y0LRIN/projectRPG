@@ -50,6 +50,10 @@ export class Fight {
         return this.team.filter(member => member.isAlive());
     }
 
+    public getTeamMembers(): Character[] {
+        return this.team;
+    }
+
     public displayBattlefield() {
         console.log("\n=== BATTLEFIELD ===");
         console.log("Your team:");

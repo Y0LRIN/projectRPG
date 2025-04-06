@@ -5,7 +5,7 @@ import { GoblinArtcher } from "./monster/goblinArtcher";
 import { GoblinWolf } from "./monster/goblinWolf";
 import { GoblinMage } from "./monster/goblinMage";
 import { ogre } from "./monster/ogre";
-import { healPotion } from "./items";
+import { healPotion, ether, starShard, halfStar } from "./items";
 
 export enum RoomType {
     EASY_BATTLE = "easy_battle",
@@ -101,7 +101,7 @@ class EnemyFactory {
 }
 
 class TreasureFactory {
-    piblic openChest(team: Team): void {
+    public openChest(team: Team): void {
         const isTrap = Math.random() < 0.25;
         if (isTrap) {
             console.log("It's a trap!");

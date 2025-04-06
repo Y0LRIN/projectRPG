@@ -10,6 +10,7 @@ import { Clerk } from "./classe/clerk.ts";
 import { Rogue } from "./classe/rogue.ts";
 import { healPotion, ether, starShard, halfStar } from "./items.ts";
 import { Rooms, RoomType } from "./rooms.ts";
+import { ogre } from "./monster/ogre.ts";
 
 class GameManager {
     private Mainmenu: Menu;
@@ -42,7 +43,7 @@ class GameManager {
         this.targetMenu = new Menu(4, "Target", []);
         this.itemMenu = new Menu(5, "Items", []);
         this.roomMenu = new Menu(6, "Room Navigation", ["Continue to next room", "Check inventory", "View team status"]);
-        this.roomNavigator = new roomNavigator();
+        this.roomNavigator = new RoomNavigator();
         this.initRooms();
     }
 
@@ -120,7 +121,7 @@ class GameManager {
         }
 
         const currentRoom = this.rooms[this.currentRoomIndex];
-        displayHeader(`                You enter a ${currentRoom.type} room!             `);
+        displayHeader(`                You enter a ${currentRoom.getRoomID} room!             `);
 
         switch (currentRoom.getRoomType()) {
             case RoomType.EASY_BATTLE:
