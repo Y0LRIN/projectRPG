@@ -41,6 +41,7 @@ export class Rooms {
         this.completed = completed;
     }
 
+    // Returns an array of enemies based on the room type
     public getEnemies(): Character[] {
         switch (this.roomType) {
             case RoomType.EASY_BATTLE:
@@ -60,6 +61,7 @@ export class Rooms {
     }
 }
 
+// Factory classes for creating enemies and treasures
 class EnemyFactory {
     public createEasyEncounter(): Character[] {
         const enemies: Character[] = [];
