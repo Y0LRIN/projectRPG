@@ -32,6 +32,11 @@ export class Menu {
             console.log("Option Invalide. Sélectionnez une option valide.");
             return this.selectOption();
         }
+        const selectedOptionIndex = parseInt(option) - 1;
+        if (selectedOptionIndex < 0 || selectedOptionIndex >= this.options.length) {
+            console.log("Option Invalide. Sélectionnez une option valide.");
+            return this.selectOption();
+        }
         return option;
     }
 

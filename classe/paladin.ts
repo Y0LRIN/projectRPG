@@ -16,7 +16,7 @@ export class Paladin extends Character {
             return;
         }
         aliveEnemies.forEach(targetEnemy => {
-            let damage = this.ATK * 0.4 - targetEnemy.DEF;
+            let damage = Math.floor(this.ATK * 0.4 - targetEnemy.DEF);
             if (damage <= 0) {
                 damage = 1;
             }

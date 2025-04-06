@@ -16,7 +16,7 @@ export class Warrior extends Character {
             return;
         }
         const target = aliveEnemies[Math.floor(Math.random() * aliveEnemies.length)];
-        let damage = this.ATK * 1.3 - target.DEF;
+        let damage = Math.floor(this.ATK * 1.3 - target.DEF);
         if (damage <= 0) {
             damage = 2;
         }

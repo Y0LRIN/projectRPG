@@ -22,7 +22,7 @@ export class Clerk extends Character {
             console.log(`${target.name} is dead and cannot be attacked!`);
             return;
         }
-        let damage = this.ATK - target.DEF;
+        let damage = Math.floor(this.ATK - target.DEF);
         if (damage <= 0) {
             damage = 1;
         }

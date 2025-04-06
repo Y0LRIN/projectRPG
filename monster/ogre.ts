@@ -16,7 +16,7 @@ export class ogre extends Character {
         return;
     }
     const targetEnemy = aliveEnemies[Math.floor(Math.random() * aliveEnemies.length)];
-    let damage = this.ATK * 1.5 - targetEnemy.DEF;
+    let damage = Math.floor(this.ATK * 1.5 - targetEnemy.DEF);
     if (damage <= 0) {
         damage = 1;
     }
