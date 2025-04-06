@@ -92,4 +92,3 @@ if (selectedOption === "1") {
     console.log("Merci d'avoir joué à notre jeu !");
     Deno.exit(0);
 }
-
