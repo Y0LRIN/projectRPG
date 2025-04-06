@@ -57,7 +57,7 @@ export class HealingObjects extends Object {
 
     public heal(target: Character): void {
         if (target.isAlive()) {
-            const healAmount = target.maxHealth * 0.5;
+            const healAmount = target.maxHealth * (this.healingAmount / 100);
             const previousHealth = target.currenthealth;
             target.currenthealth += healAmount;
             if (target.currenthealth > target.maxHealth) {

@@ -354,7 +354,7 @@ export class GameManager {
         if (itemIndex >= 0 && itemIndex < inventory.length) {
             const selectedItem = inventory[itemIndex];
             if (selectedItem instanceof HealingObjects) {
-                const allies = this.currentFight!.getAliveTeamMembers();
+                const allies = this.playerTeam.getMembers();
                 this.targetMenu.options = allies.map(ally => `${ally.name} (HP: ${ally.currenthealth}/${ally.maxHealth})`);
                 this.targetMenu.displayMenu();
                 this.targetMenu.displayOptions();
@@ -364,7 +364,7 @@ export class GameManager {
                     selectedItem.use(allies[targetIndex], this.playerTeam);
                 }
             } else if (selectedItem instanceof ManaObjects) {
-                const manaUsers = this.currentFight!.getAliveTeamMembers().filter(
+                const manaUsers = this.playerTeam.getMembers().filter(
                     member => member instanceof Caster || member instanceof Clerk
                 );
                 if (manaUsers.length === 0) {
