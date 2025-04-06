@@ -1,11 +1,11 @@
-import { Team } from "./team";
-import { Character } from "./Character";
-import { Goblin } from "./monster/goblin";
-import { GoblinArtcher } from "./monster/goblinArtcher";
-import { GoblinWolf } from "./monster/goblinWolf";
-import { GoblinMage } from "./monster/goblinMage";
-import { ogre } from "./monster/ogre";
-import { healPotion, ether, starShard, halfStar } from "./items";
+import { Team } from "./team.ts";
+import { Character } from "./Character.ts";
+import { Goblin } from "./monster/goblin.ts";
+import { GoblinArtcher } from "./monster/goblinArtcher.ts";
+import { GoblinWolf } from "./monster/goblinWolf.ts";
+import { GoblinMage } from "./monster/goblinMage.ts";
+import { ogre } from "./monster/ogre.ts";
+import { healPotion, ether, starShard, halfStar } from "./items.ts";
 
 export enum RoomType {
     EASY_BATTLE = "easy_battle",

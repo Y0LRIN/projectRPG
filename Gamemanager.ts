@@ -12,7 +12,7 @@ import { healPotion, ether, starShard, halfStar } from "./items.ts";
 import { Rooms, RoomType } from "./rooms.ts";
 import { ogre } from "./monster/ogre.ts";
 
-class GameManager {
+export class GameManager {
     private Mainmenu: Menu;
     private characterMenu: Menu;
     private battleMenu: Menu;
