@@ -1,6 +1,7 @@
 import { Caster } from './classe/caster.ts';
 import { Clerk } from './classe/clerk.ts';
 import { Team } from './team.ts';
+import { Character } from './Character.ts';
 
 export class Object {
     private name: string;
@@ -12,11 +13,12 @@ export class Object {
         this.description = description;
         this.useNbr = useNbr;
     }
+
     public use(target: any, team: Team): void {
-        console.log(`Using ${this.name} on ${target}`);
-        if (target instanceof HealingObjects) {
+        console.log(`Using ${this.name} on ${target.name}`);
+        if (this instanceof HealingObjects) {
             target.heal(target);
-        } else if (target instanceof ManaObjects) {
+        } else if (this instanceof ManaObjects) {
             target.restoreMana(target);
         } else {
             console.log(`Cannot use ${this.name} on ${target}`);
@@ -53,16 +55,18 @@ export class HealingObjects extends Object {
         return this.healingAmount;
     }
 
-    public heal(target: any): void {
+    public heal(target: Character): void {
         if (target.isAlive()) {
-            if (target.currenthealth + target.maxHealth * (this.healingAmount / 100) > target.maxHealth) {
-                target.currenthealth = target.maxHealth;
-            } else {
-                target.currenthealth += target.maxHealth * (this.healingAmount / 100);
+            const healAmount = target.maxHealth * 0.5;
+            const previousHealth = target.currenthealth;
+            target.currenthealth += healAmount;
+            if (target.currenthealth > target.maxHealth) {
+            target.currenthealth = target.maxHealth;
             }
-            console.log(`${target.getName()} healed for ${target.maxHealth * (this.healingAmount / 100)} health!`);
+            const actualHeal = target.currenthealth - previousHealth;
+            console.log(`${this.getName()} heals ${target.name} for ${actualHeal} health!`);
         } else {
-            console.log(`${target.getName()} is dead and cannot be healed!`);
+            console.log(`${target.name} is dead and cannot be healed!`);
         }
     }
 

@@ -65,6 +65,7 @@ export class Character {
             return;
         }
         let heal = target.maxHealth * (this.healCap / 100);
+        target.currenthealth += heal;
         if (target.currenthealth > target.maxHealth) {
             target.currenthealth = target.maxHealth;
         }

@@ -15,15 +15,16 @@ export class Paladin extends Character {
             console.log(`There are no alive enemies to attack!`);
             return;
         }
-        const targetEnemy = aliveEnemies[Math.floor(Math.random() * aliveEnemies.length)];
-        let damage = this.ATK * 0.4 - targetEnemy.DEF;
-        if (damage <= 0) {
-            damage = 1;
-        }
-        targetEnemy.currenthealth -= damage;
-        if (targetEnemy.currenthealth < 0) {
-            targetEnemy.currenthealth = 0;
-        }
-        console.log(`${this.name} smites ${targetEnemy.name} for ${damage} damage!`);
+        aliveEnemies.forEach(targetEnemy => {
+            let damage = this.ATK * 0.4 - targetEnemy.DEF;
+            if (damage <= 0) {
+                damage = 1;
+            }
+            targetEnemy.currenthealth -= damage;
+            if (targetEnemy.currenthealth < 0) {
+                targetEnemy.currenthealth = 0;
+            }
+            console.log(`${this.name} smites ${targetEnemy.name} for ${damage} damage!`);
+        });
     }
 }

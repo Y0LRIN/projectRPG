@@ -2,7 +2,7 @@ import { Character } from "../Character.ts";
 
 export class ogre extends Character {
   constructor() {
-    super("ogre", 16, 10, 2 ,50 ,20 ,20);
+    super("ogre", 16, 6, 2 ,50 ,20 ,20);
   }
 
   public specialAttack(targets: Character[]) {

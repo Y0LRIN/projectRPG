@@ -11,6 +11,7 @@ import { Rogue } from "./classe/rogue.ts";
 import { healPotion, ether, starShard, halfStar } from "./items.ts";
 import { Rooms, RoomType } from "./rooms.ts";
 import { ogre } from "./monster/ogre.ts";
+import { HealingObjects, ManaObjects } from "./objects.ts";
 
 export class GameManager {
     private Mainmenu: Menu;
@@ -52,7 +53,7 @@ export class GameManager {
     }
 
     public start(): void {
-        displayHeader("                Welcome to RPG Tape Goblin               ");
+        displayHeader("                Welcome to RPG Tape Goblin                ");
         this.showMainMenu();
     }
 
@@ -71,7 +72,7 @@ export class GameManager {
     }
 
     private createTeam(): void {
-        displayHeader("                Choose your team of heroes             ");
+        displayHeader("                Choose your team of heroes                ");
 
         this.characterMenu = new Menu(2, "Heroes", ["Warrior", "Knight", "Paladin", "Caster", "Clerk", "Rogue"]);
         this.characterMenu.displayMenu();
@@ -110,7 +111,7 @@ export class GameManager {
     }
 
     private startAdventure(): void {
-        displayHeader("                Adventure Begins!             ");
+        displayHeader("                Adventure Begins!                         ");
         this.currentRoomIndex = 0;
         this.enterCurrentRoom();
     }
@@ -121,7 +122,7 @@ export class GameManager {
         }
 
         const currentRoom = this.rooms[this.currentRoomIndex];
-        displayHeader(`                You enter a ${currentRoom.getRoomID} room!             `);
+        displayHeader(`                Room ${currentRoom.getRoomID()}                           `);
 
         switch (currentRoom.getRoomType()) {
             case RoomType.EASY_BATTLE:
@@ -210,7 +211,7 @@ export class GameManager {
             return;
         }
 
-        displayHeader("                Battle Begins!             ");
+        displayHeader("                Battle Begins!                            ");
         console.log("Enemies: ");
         enemies.forEach(enemy => {
             console.log(`- ${enemy.name} (HP: ${enemy.currenthealth}/${enemy.maxHealth})`);
@@ -320,7 +321,7 @@ export class GameManager {
             const targetChoice = this.targetMenu.selectOption();
             const targetIndex = parseInt(targetChoice!) - 1;
             if (targetIndex >= 0 && targetIndex < enemies.length) {
-                (character as any).fireball(enemies[targetIndex]); 
+                (character as any).DamageMagic(enemies[targetIndex]); 
             }
         } else {
             console.log(`${character.name} has no special ability.`);
@@ -344,7 +345,7 @@ export class GameManager {
 
         if (itemIndex >= 0 && itemIndex < inventory.length) {
             const selectedItem = inventory[itemIndex];
-            if (selectedItem.constructor.name === "HealingObjects") {
+            if (selectedItem instanceof HealingObjects) {
                 const allies = this.currentFight!.getAliveTeamMembers();
                 this.targetMenu.options = allies.map(ally => `${ally.name} (HP: ${ally.currenthealth}/${ally.maxHealth})`);
                 this.targetMenu.displayMenu();
@@ -354,7 +355,7 @@ export class GameManager {
                 if (targetIndex >= 0 && targetIndex < allies.length) {
                     selectedItem.use(allies[targetIndex], this.playerTeam);
                 }
-            } else if (selectedItem.constructor.name === "ManaObjects") {
+            } else if (selectedItem instanceof ManaObjects) {
                 const manaUsers = this.currentFight!.getAliveTeamMembers().filter(
                     member => member instanceof Caster || member instanceof Clerk
                 );
@@ -406,7 +407,7 @@ export class GameManager {
     }
 
     private victoryEnding(): void {
-        displayHeader("                Victory!             ");
+        displayHeader("                Victory!                                  ");
         console.log("Congratulations! You have defeated the boss and completed the dungeon!");
         console.log("The goblins have been vanquished, and peace has returned to the land.");
         console.log("You and your team are hailed as heroes!");
@@ -428,7 +429,7 @@ export class GameManager {
     }
 
     private gameOver(): void {
-        displayHeader("                Game Over!             ");
+        displayHeader("                Game Over!                                ");
         console.log("Your party has been defeated...");
         console.log("Would you like to play again?");
         this.Mainmenu.options = ["Continue", "Exit"];
